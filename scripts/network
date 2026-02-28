@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Get active connections (terse, no color, no headers)
+active=$(nmcli -t -f TYPE,STATE,CONNECTION dev)
+
+wifi=$(printf "%s\n" "$active" | awk -F: '/^wifi:connected/ {print $3}')
+eth=$(printf "%s\n" "$active" | awk -F: '/^ethernet:connected/ {print $3}')
+
+if [ -n "$wifi" ]; then
+    printf "WIFI %s" "$wifi"
+elif [ -n "$eth" ]; then
+    printf "LAN %s" "$eth"
+else
+    printf "OFFLINE"
+fi

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+capacity=$(cat /sys/class/power_supply/BAT0/capacity 2>/dev/null)
+status=$(cat /sys/class/power_supply/BAT0/status 2>/dev/null)
+
+[ -z "$capacity" ] && exit 0
+
+printf "BAT %s%%" "$capacity"
+
+[ "$status" = "Charging" ] && printf "+"

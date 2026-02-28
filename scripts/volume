@@ -1,0 +1,11 @@
+#!/bin/sh
+
+vol=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ 2>/dev/null)
+
+# Extract percentage
+percent=$(printf "%s" "$vol" | awk '{print int($2 * 100)}')
+
+# Detect mute
+echo "$vol" | grep -q MUTED && printf "VOL MUTE" && exit
+
+printf "VOL %s%%" "$percent"
