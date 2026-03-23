@@ -8,4 +8,4 @@ percent=$(printf "%s" "$vol" | awk '{print int($2 * 100)}')
 # Detect mute
 echo "$vol" | grep -q MUTED && printf "VOL MUTE" && exit
 
-printf "VOL %s%%" "$percent"
+printf "VOL: %s%%" "$percent"
